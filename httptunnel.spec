@@ -1,6 +1,6 @@
 %define name	httptunnel
 %define version	3.3
-%define release	%mkrel 11
+%define release	%mkrel 12
 
 Name:		%{name}
 Version:	%{version}
