@@ -13,8 +13,10 @@ Source2:	hts.init
 Source3:	hts.sysconfig
 URL:		http://www.nocrew.org/software/httptunnel.html
 Group:		Networking/Other
+Requires(pre):	rpm-helper
 Requires(post):	rpm-helper
 Requires(preun):	rpm-helper
+Requires(postun):	rpm-helper
 Requires:	xinetd
 BuildRoot:	%{_tmppath}/%{name}-%{version}
 
@@ -42,12 +44,19 @@ rm -rf %{buildroot}
 install -m 644 %{SOURCE1} -D %{buildroot}%{_sysconfdir}/xinetd.d/hts-xinetd
 install -m 755 %{SOURCE2} -D %{buildroot}%{_initrddir}/hts
 install -m 644 %{SOURCE3} -D %{buildroot}%{_sysconfdir}/sysconfig/hts
+install -d -m 755 %{buildroot}%{_var}/run/%{name}
+
+%pre
+%_pre_useradd %{name} %{_var}/run/%{name} /bin/false
 
 %post
 %_post_service hts
 
 %preun
 %_preun_service hts
+
+%postun
+%_postun_userdel %{name}
 
 %clean
 rm -rf %{buildroot}
@@ -58,7 +67,6 @@ rm -rf %{buildroot}
 %config(noreplace) %{_sysconfdir}/xinetd.d/hts-xinetd
 %config(noreplace) %{_sysconfdir}/sysconfig/hts
 %{_initrddir}/hts
+%attr(-,httptunnel,httptunnel) %{_var}/run/%{name}
 %{_bindir}/*
 %{_mandir}/man1/*
-
-
