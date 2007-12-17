@@ -18,7 +18,6 @@ Requires(post):	rpm-helper
 Requires(preun):	rpm-helper
 Requires(postun):	rpm-helper
 Requires:	xinetd
-BuildRoot:	%{_tmppath}/%{name}-%{version}
 
 %description
 httptunnel creates a bidirectional virtual data path tunneled in HTTP
