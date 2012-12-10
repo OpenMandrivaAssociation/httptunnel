@@ -1,0 +1,20 @@
+# default: off
+# description: The httptunnel server tunnels SSH connections over the HTTP \
+# protocol.
+service hts
+{
+	# bind		= external.somewhere.com
+	# only_from	= 1.2.3.0/24
+
+	port		= 8888
+	type		= UNLISTED
+	flags		= REUSE
+	protocol	= tcp
+	socket_type	= stream        
+	wait		= no
+	user		= root
+	redirect	= localhost 7777
+	log_on_success	+= USERID
+	log_on_failure	+= USERID
+	disable		= yes
+}

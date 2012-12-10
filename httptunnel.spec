@@ -70,3 +70,53 @@ rm -rf %{buildroot}
 %attr(-,httptunnel,httptunnel) %{_var}/run/%{name}
 %{_bindir}/*
 %{_mandir}/man1/*
+
+
+%changelog
+* Fri Dec 10 2010 Oden Eriksson <oeriksson@mandriva.com> 3.3-16mdv2011.0
++ Revision: 619490
+- the mass rebuild of 2010.0 packages
+
+* Fri Sep 04 2009 Thierry Vignaud <tv@mandriva.org> 3.3-15mdv2010.0
++ Revision: 429479
+- rebuild
+
+* Thu Jul 24 2008 Thierry Vignaud <tv@mandriva.org> 3.3-14mdv2009.0
++ Revision: 247074
+- rebuild
+
+* Wed Jan 02 2008 Olivier Blin <oblin@mandriva.com> 3.3-12mdv2008.1
++ Revision: 140755
+- restore BuildRoot
+
+  + Thierry Vignaud <tv@mandriva.org>
+    - kill re-definition of %%buildroot on Pixel's request
+
+  + Guillaume Rousse <guillomovitch@mandriva.org>
+    - better init script
+      run under a specific uid
+      fix pid file issue
+
+
+* Sun Jan 21 2007 Olivier Blin <oblin@mandriva.com> 3.3-11mdv2007.0
++ Revision: 111327
+- use LSB header in initscript
+- bunzip2 sources
+- Import httptunnel
+
+* Wed Aug 30 2006 Guillaume Rousse <guillomovitch@mandriva.org> 3.3-10mdv2007.0
+- Rebuild
+
+* Wed Nov 02 2005 Guillaume Rousse <guillomovitch@mandriva.org> 3.3-9mdk
+- %%mkrel
+- spec cleanup
+- fix requires
+- don't mark init script as config
+
+* Thu Oct 28 2004 Guillaume Rousse <guillomovitch@mandrake.org> 3.3-8mdk 
+- distinct name for xinetd service (fix bug #11237)
+- no restart on upgrade, as there is policy about it
+
+* Thu Jul 22 2004 Guillaume Rousse <guillomovitch@mandrake.org> 3.3-7mdk 
+- rpmbuildupdate aware
+

@@ -1,0 +1,32 @@
+# Default httptunnel configuration:
+# -S: Always write Content-Type header
+# -F: Forward to the SSH port on this machine
+#
+HTS_OPTS="-S -F localhost:22"
+
+# Interface and port that hts will listen on.
+#
+# The default configuration is to listen on localhost:7777.  You almost
+# certainly will never want to change this.  Before changing either of these,
+# understand how this particular installation of httptunnel works.
+#
+# For security purposes, the hts server process that must always persist runs
+# ONLY on the loopback interface, under an unprivileged user.  This
+# effectively blocks off all access to httptunnel from external machines, and
+# additionally helps ensure that any potential security issues that may arise
+# with httptunnel will have more limited consequences since the hts process
+# runs under an unpriviliged account.
+#
+# External machines connect to this server via xinetd which then redirects
+# connections to the persistent hts process.  This gives you the ability to
+# support multiple connections, in addition to utilizing the more advanced
+# access control facilities available under xinetd.  If you want to modify
+# what interface and port external machines connect to, you want to modify
+# /etc/xinetd.d/hts, NOT THE ENTRIES BELOW.  Should you choose to modify these
+# entries, you will need to modify the hts xinetd configuration file as well
+# to point to the new interface and port.  You have been warned.
+#
+HTS_SERVER="localhost"
+
+# Port that hts will listen on.
+HTS_PORT="7777"

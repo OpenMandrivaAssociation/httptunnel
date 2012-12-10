@@ -1,0 +1,83 @@
+#!/bin/sh
+#
+# chkconfig: 345 90 10
+# description: httptunnel server daemon
+#
+### BEGIN INIT INFO
+# Provides: hts
+# Required-Start: $network
+# Required-Stop: $network
+# Default-Start: 3 5
+# Short-Description: httptunnel server daemon
+# Description:  An HTTP tunneling server designed to tunnel other protocols,
+#               such as SSH, over the HTTP protocol.
+### END INIT INFO
+
+# Source function library.
+. /etc/init.d/functions
+
+# Source networking configuration.
+. /etc/sysconfig/network
+
+# Check that networking is up.
+[ ${NETWORKING} = "no" ] && exit 0
+
+# Local variables
+NAME=hts
+BINARY=/usr/bin/hts
+LOCKFILE=/var/lock/subsys/$NAME
+HTS_OPTS="-S -F localhost:22"
+HTS_SERVER="localhost"
+HTS_PORT="7777"
+if [ -f /etc/sysconfig/hts ] ; then
+    . /etc/sysconfig/hts
+fi
+
+start() {
+    # Check if hts is already running
+    if [ ! -f $LOCKFILE ]; then
+	echo -n "Starting $NAME"
+	daemon --user httptunnel $BINARY -p /var/run/httptunnel/hts.pid \
+	    $HTS_OPTS $HTS_SERVER:$HTS_PORT
+	rc=$?
+	[ $rc -eq 0 ] && touch $LOCKFILE
+	echo
+    fi
+    return $rc
+}
+
+stop() {
+    echo -n "Stopping $NAME"
+    killproc $BINARY
+    rc=$?
+    [ $rc -eq 0 ] && rm -f $LOCKFILE
+    echo
+    return $rc
+}
+
+case "$1" in
+    start)
+	start
+	;;
+    stop)
+	stop
+	;;
+    reload|restart)
+	stop
+	start
+	;;
+    condrestart)
+	if [ -f $LOCKFILE ]; then
+	    stop
+	    start
+	fi
+	;;
+    status)
+	status $BINARY
+	;;
+  *)
+	echo $"Usage: $0 {condrestart|start|stop|restart|reload|status}"
+	exit 1
+esac
+
+exit $?
