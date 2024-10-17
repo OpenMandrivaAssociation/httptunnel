@@ -11,7 +11,7 @@ Source0:	ftp://ftp.nocrew.org/pub/nocrew/unix/%{name}-%{version}.tar.bz2
 Source1:	hts.xinetd
 Source2:	hts.init
 Source3:	hts.sysconfig
-URL:		http://www.nocrew.org/software/httptunnel.html
+URL:		https://www.nocrew.org/software/httptunnel.html
 Group:		Networking/Other
 Requires(pre):	rpm-helper
 Requires(post):	rpm-helper
