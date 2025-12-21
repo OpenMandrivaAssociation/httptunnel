@@ -20,6 +20,11 @@ Requires(postun):	rpm-helper
 Requires:	xinetd
 BuildRoot:	%{_tmppath}/%{name}-%{version}
 
+BuildRequires:	autoconf
+BuildRequires:	automake
+BuildRequires:	libtool-base
+BuildRequires:	slibtool
+BuildRequires:	make
 %description
 httptunnel creates a bidirectional virtual data path tunneled in HTTP
 requests. The HTTP requests can be sent via an HTTP proxy if so desired. 
